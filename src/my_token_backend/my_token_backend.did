@@ -1,0 +1,36 @@
+type Errors = variant {
+  InsufficientFunds: record { balance: nat };
+  ReceiverSameAsSender;
+  NoEntryInUser;
+  ZeroTransfer;
+  MinterNotSet;
+  NotTheMinter;
+};
+
+
+service : {
+  token_name: () -> (text) query;
+  token_symbol: () -> (text) query;
+  total_supply: () -> (nat) query;
+  check_balance: (principal) -> (nat) query;
+  check_caller: () -> (principal) query;
+  minter: () -> (principal) query;
+
+  transfer: (principal, nat) -> (variant { Ok : nat; Err : Errors });
+  mint: (nat , principal) -> (variant { Ok : nat; Err : Errors });
+
+  get_login_details: () -> (text,text) query;
+  signup_user : (text,text) -> (text); 
+  get_all_users : () -> (vec record { text ; text}) query;
+  get_token_metadata : () -> (text , text, text , text) query; 
+  update_user_details : (text,text) -> ();
+  new_user : () -> (); 
+
+  get_profile_details : () -> (text,text,text,text) query;
+  check_balance_of : (text) -> (text) query;
+  transfer_to : (text,text) -> (text); 
+  mint_tokens : (text,text) -> (text); 
+  get_header_details : () -> (text , text) query;
+  update_profile_details : (text , text) -> ();
+  register_user : () -> ();
+}
