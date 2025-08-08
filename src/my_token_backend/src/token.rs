@@ -106,6 +106,5 @@ pub fn new_user(){
 
 
     state.all_user.insert(caller(), UserData{ name : "".to_string() , email : "".to_string()});
-    state.all_users_balance.insert(caller(), 70000000);
     save_state(state);
 }

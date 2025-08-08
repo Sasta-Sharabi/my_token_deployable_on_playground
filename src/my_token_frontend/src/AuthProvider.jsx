@@ -11,7 +11,7 @@ const defaultOptions = {
         }
     },
     loginOptions:{
-        identityProvider: "http://uxrrr-q7777-77774-qaaaq-cai.localhost:4943/",
+        identityProvider: "https://identity.ic0.app",
     }
 }
 
@@ -49,6 +49,12 @@ export const useAuthClient = (options = defaultOptions) => {
         });
 
         setCallFunction(actor);
+
+        try {
+            await actor.register_user();
+        } catch (e) {
+            console.warn("User may already be registered:", e);
+        }
     }
 
     const login = () => {
