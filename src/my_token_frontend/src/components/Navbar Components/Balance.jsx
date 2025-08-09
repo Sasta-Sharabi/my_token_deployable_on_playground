@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { mini_task3_backend } from 'declarations/mini_task3_backend';
 import { useAuth } from '../../AuthProvider';
 
 const Balance = () => {
@@ -7,7 +6,7 @@ const Balance = () => {
   const [balance, setBalance] = useState(null);
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
-  const { callFunction} = useAuth();
+  const { callFunction } = useAuth();
 
   const handleCheckBalance = async (e) => {
     e.preventDefault();
@@ -17,7 +16,6 @@ const Balance = () => {
 
     try {
       const result = await callFunction.check_balance_of(principal);
-      console.log(result);
       setBalance(result);
       setStatus('✅ Balance fetched successfully.');
     } catch (err) {
@@ -35,23 +33,23 @@ const Balance = () => {
         <form onSubmit={handleCheckBalance} style={styles.form}>
           <div style={styles.formGroup}>
             <label style={styles.label}>Principal ID:</label>
-            <input
-              type="text"
+            <textarea
               value={principal}
               onChange={(e) => setPrincipal(e.target.value)}
               required
-              style={styles.inputBox}
+              style={styles.principalBox}
               placeholder="Enter principal ID"
+              rows={2}
             />
           </div>
           <button type="submit" style={styles.button} disabled={loading}>
-            {loading ? 'Checking...' : 'Check Balance'}
+            {loading ? '⚡ Checking...' : '🚀 Check Balance'}
           </button>
         </form>
         {status && <p style={styles.status}>{status}</p>}
         {balance !== null && (
           <div style={styles.resultBox}>
-            <strong>Balance:</strong> {balance}
+            <strong>💰 Balance:</strong> {balance}
           </div>
         )}
       </div>
@@ -62,7 +60,7 @@ const Balance = () => {
 const styles = {
   container: {
     padding: '40px',
-    background: 'linear-gradient(to right, #eef2f3, #ffffff)',
+    background: 'radial-gradient(circle at center, #0f0f0f 0%, #000000 100%)',
     minHeight: '100vh',
     fontFamily: `'Inter', sans-serif`,
     display: 'flex',
@@ -72,18 +70,22 @@ const styles = {
   card: {
     width: '100%',
     maxWidth: '600px',
-    backgroundColor: '#ffffff',
+    background: 'rgba(20, 20, 20, 0.75)',
+    backdropFilter: 'blur(16px)',
     borderRadius: '16px',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.07)',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    boxShadow: '0 0 20px rgba(255, 215, 0, 0.2)',
     padding: '30px 40px',
+    color: '#f5f5f5',
   },
   title: {
     fontSize: '26px',
     marginBottom: '25px',
     fontWeight: 700,
-    color: '#1e293b',
-    borderBottom: '2px solid #e2e8f0',
+    color: '#FFD700',
+    borderBottom: '2px solid rgba(255, 215, 0, 0.4)',
     paddingBottom: '10px',
+    textShadow: '0 0 6px rgba(255, 215, 0, 0.5)',
   },
   form: {
     display: 'flex',
@@ -97,43 +99,53 @@ const styles = {
   },
   label: {
     fontSize: '16px',
-    color: '#334155',
+    color: '#FFD700',
     marginBottom: '8px',
+    fontWeight: 'bold',
   },
-  inputBox: {
+  principalBox: {
     width: '100%',
     padding: '12px',
     fontSize: '16px',
     fontFamily: 'monospace',
-    border: '1px solid #cbd5e1',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
     borderRadius: '8px',
     outline: 'none',
-    backgroundColor: '#f8fafc',
+    resize: 'none',
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    color: '#FFD700',
+    boxShadow: '0 0 8px rgba(255, 215, 0, 0.2)',
   },
   button: {
     width: '100%',
     padding: '14px',
     fontSize: '16px',
-    backgroundColor: '#3b82f6',
-    color: '#ffffff',
+    background: 'linear-gradient(90deg, #FFD700, #ffcc33)',
+    color: '#000',
+    fontWeight: 'bold',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
+    boxShadow: '0 0 10px rgba(255, 215, 0, 0.4)',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
   },
   status: {
     marginTop: '20px',
     fontSize: '16px',
-    color: '#334155',
+    color: '#FFD700',
+    textShadow: '0 0 6px rgba(255, 215, 0, 0.5)',
   },
   resultBox: {
-    marginTop: '10px',
+    marginTop: '15px',
     fontSize: '17px',
-    color: '#1e293b',
-    background: '#f1f5f9',
+    color: '#FFD700',
+    background: 'rgba(255, 215, 0, 0.05)',
     padding: '10px 15px',
     borderRadius: '8px',
     wordBreak: 'break-word',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    boxShadow: '0 0 6px rgba(255, 215, 0, 0.2)',
   },
 };
 

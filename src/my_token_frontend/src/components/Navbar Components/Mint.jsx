@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-// import { mini_task3_backend } from 'declarations/mini_task3_backend';
 import { useAuth } from '../../AuthProvider';
+import bankIcon from '../../assets/mint.png'; // Make sure path matches your folder
+
+import './Mint.css'; // Import CSS for animations
 
 const Mint = () => {
   const [amount, setAmount] = useState('');
   const [principal, setPrincipal] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
-  const { callFunction, logout } = useAuth();
+  const { callFunction } = useAuth();
 
   const handleMint = async (e) => {
     e.preventDefault();
@@ -15,9 +17,8 @@ const Mint = () => {
     setStatus('');
 
     try {
-      const result = await callFunction.mint_tokens( amount.toString(),principal);
-      console.log(result);
-      setStatus(` Mint status: ${result}`);
+      const result = await callFunction.mint_tokens(amount.toString(), principal);
+      setStatus(`✅ Mint status: ${result}`);
     } catch (err) {
       console.error("Mint failed:", err);
       setStatus('❌ Mint failed. Check console for details.');
@@ -28,18 +29,20 @@ const Mint = () => {
 
   return (
     <div style={styles.container}>
-      <div style={styles.card}>
+      <div style={styles.card} className="mint-card">
+        <img src={bankIcon} alt="Mint Icon" className="mint-icon" />
         <h2 style={styles.title}>🪙 Mint Tokens</h2>
         <form onSubmit={handleMint} style={styles.form}>
           <div style={styles.formGroup}>
             <label style={styles.label}>Principal ID:</label>
-            <input
-              type="text"
+            <textarea
               value={principal}
               onChange={(e) => setPrincipal(e.target.value)}
               required
               placeholder="Enter Principal ID"
-              style={styles.inputBox}
+              style={styles.principalBox}
+              className="mint-input"
+              rows={2}
             />
           </div>
           <div style={styles.formGroup}>
@@ -55,14 +58,15 @@ const Mint = () => {
               }}
               required
               placeholder="Enter amount (u128)"
-              style={styles.inputBox}
+              style={styles.amountBox}
+              className="mint-input"
             />
           </div>
-          <button type="submit" style={styles.button} disabled={loading}>
-            {loading ? 'Minting...' : 'Mint'}
+          <button type="submit" style={styles.button} className="mint-button" disabled={loading}>
+            {loading ? '⚡ Minting...' : '🚀 Mint'}
           </button>
         </form>
-        {status && <p style={styles.status}>{status}</p>}
+        {status && <p style={styles.status} className="status-gold">{status}</p>}
       </div>
     </div>
   );
@@ -71,7 +75,7 @@ const Mint = () => {
 const styles = {
   container: {
     padding: '40px',
-    background: 'linear-gradient(to right, #eef2f3, #ffffff)',
+    background: 'radial-gradient(circle at center, #0f0f0f 0%, #000000 100%)',
     minHeight: '100vh',
     fontFamily: `'Inter', sans-serif`,
     display: 'flex',
@@ -81,18 +85,23 @@ const styles = {
   card: {
     width: '100%',
     maxWidth: '600px',
-    backgroundColor: '#ffffff',
+    background: 'rgba(20, 20, 20, 0.75)',
+    backdropFilter: 'blur(16px)',
     borderRadius: '16px',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.07)',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    boxShadow: '0 0 20px rgba(255, 215, 0, 0.2)',
     padding: '30px 40px',
+    color: '#f5f5f5',
+    textAlign: 'center',
   },
   title: {
     fontSize: '26px',
     marginBottom: '25px',
     fontWeight: 700,
-    color: '#1e293b',
-    borderBottom: '2px solid #e2e8f0',
+    color: '#FFD700',
+    borderBottom: '2px solid rgba(255, 215, 0, 0.4)',
     paddingBottom: '10px',
+    textShadow: '0 0 6px rgba(255, 215, 0, 0.5)',
   },
   form: {
     display: 'flex',
@@ -106,35 +115,55 @@ const styles = {
   },
   label: {
     fontSize: '16px',
-    color: '#334155',
+    color: '#FFD700',
     marginBottom: '8px',
+    fontWeight: 'bold',
   },
-  inputBox: {
+  principalBox: {
     width: '100%',
     padding: '12px',
     fontSize: '16px',
     fontFamily: 'monospace',
-    border: '1px solid #cbd5e1',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
     borderRadius: '8px',
     outline: 'none',
-    backgroundColor: '#f8fafc',
+    resize: 'none',
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    color: '#FFD700',
+    boxShadow: '0 0 8px rgba(255, 215, 0, 0.2)',
+  },
+  amountBox: {
+    width: '100%',
+    padding: '12px',
+    fontSize: '16px',
+    fontFamily: 'monospace',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    borderRadius: '8px',
+    outline: 'none',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    color: '#FFD700',
+    boxShadow: '0 0 8px rgba(255, 215, 0, 0.2)',
   },
   button: {
     width: '100%',
     padding: '14px',
     fontSize: '16px',
-    backgroundColor: '#10b981',
-    color: '#ffffff',
+    background: 'linear-gradient(90deg, #FFD700, #ffcc33)',
+    color: '#000',
+    fontWeight: 'bold',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
+    boxShadow: '0 0 10px rgba(255, 215, 0, 0.4)',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
   },
   status: {
     marginTop: '20px',
     fontSize: '16px',
-    color: '#334155',
+    color: '#FFD700',
     whiteSpace: 'pre-wrap',
+    textShadow: '0 0 6px rgba(255, 215, 0, 0.5)',
   },
 };
 

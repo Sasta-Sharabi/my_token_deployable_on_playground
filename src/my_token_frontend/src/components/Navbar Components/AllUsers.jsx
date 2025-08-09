@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../AuthProvider';
+import './AllUsers.css';
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const { callFunction } = useAuth();
-  const [refreshTrigger, setRefreshTrigger] = useState(0); // rerender trigger
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -20,10 +21,8 @@ const AllUsers = () => {
   }, [callFunction]);
 
   useEffect(() => {
-    fetchUsers(); // fetch when component mounts or refreshTrigger changes
-
-    const interval = setInterval(fetchUsers, 5000); // refresh every 5s
-
+    fetchUsers();
+    const interval = setInterval(fetchUsers, 5000);
     return () => clearInterval(interval);
   }, [fetchUsers, refreshTrigger]);
 
@@ -37,7 +36,14 @@ const AllUsers = () => {
       <div style={styles.card}>
         <div style={styles.header}>
           <h2 style={styles.title}>👥 All Registered Users</h2>
-          <button onClick={manualRefresh} style={styles.refreshBtn}>🔄 Refresh</button>
+          <button
+            onClick={manualRefresh}
+            style={styles.refreshBtn}
+            onMouseEnter={(e) => e.target.style.boxShadow = '0 0 15px rgba(255, 215, 0, 0.8)'}
+            onMouseLeave={(e) => e.target.style.boxShadow = styles.refreshBtn.boxShadow}
+          >
+            🔄 Refresh
+          </button>
         </div>
 
         {loading ? (
@@ -45,32 +51,22 @@ const AllUsers = () => {
         ) : users.length === 0 ? (
           <p style={styles.status}>No users found.</p>
         ) : (
-          <UserTable users={users} />
+          <div style={styles.cardGrid}>
+            {users.map(([principal, balance], idx) => (
+              <UserCard key={idx} principal={principal} balance={balance} />
+            ))}
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-const UserTable = ({ users }) => {
+const UserCard = ({ principal, balance }) => {
   return (
-    <div style={styles.tableWrapper}>
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.th}>Principal</th>
-            <th style={styles.th}>Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(([principal, balance], idx) => (
-            <tr key={idx} style={idx % 2 === 0 ? styles.rowEven : styles.rowOdd}>
-              <td style={styles.td}>{principal}</td>
-              <td style={styles.td}>{balance}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div style={styles.userCard} className="userCard">
+      <p style={styles.userPrincipal}>{principal}</p>
+      <p style={styles.userBalance}>💰 {balance}</p>
     </div>
   );
 };
@@ -78,7 +74,7 @@ const UserTable = ({ users }) => {
 const styles = {
   container: {
     padding: '40px',
-    background: 'linear-gradient(to right, #eef2f3, #ffffff)',
+    background: 'radial-gradient(circle at center, #000000 0%, #1a1a1a 100%)',
     minHeight: '100vh',
     fontFamily: `'Inter', sans-serif`,
     display: 'flex',
@@ -88,68 +84,69 @@ const styles = {
   card: {
     width: '100%',
     maxWidth: '1000px',
-    backgroundColor: '#ffffff',
+    background: 'rgba(255, 255, 255, 0.05)',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    backdropFilter: 'blur(18px)',
     borderRadius: '16px',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.07)',
+    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
     padding: '30px 40px',
+    animation: 'fadeIn 0.6s ease-out',
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottom: '1px solid rgba(255, 215, 0, 0.2)',
+    paddingBottom: '12px',
   },
   title: {
     fontSize: '26px',
     fontWeight: 700,
-    color: '#1e293b',
-    borderBottom: '2px solid #e2e8f0',
-    paddingBottom: '10px',
+    color: '#FFD700',
+    letterSpacing: '1px',
   },
   refreshBtn: {
-    padding: '8px 12px',
-    backgroundColor: '#3b82f6',
-    color: '#ffffff',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
+    padding: '8px 14px',
     fontSize: '14px',
+    fontWeight: 'bold',
+    background: 'linear-gradient(90deg, #FFD700, #FFB700)',
+    color: '#000',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    boxShadow: '0 0 10px rgba(255, 215, 0, 0.6)',
+    transition: 'all 0.3s ease',
   },
   status: {
     fontSize: '17px',
-    color: '#64748b',
+    color: '#d1d5db',
     marginTop: '20px',
   },
-  tableWrapper: {
-    overflowX: 'auto',
+  cardGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+    gap: '20px',
     marginTop: '20px',
   },
-  table: {
-    width: '100%',
-    borderCollapse: 'separate',
-    borderSpacing: '0',
-    minWidth: '600px',
+  userCard: {
+    background: 'rgba(26, 26, 26, 0.95)', // solid enough to prevent overlap
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    borderRadius: '12px',
+    padding: '20px',
+    boxShadow: '0 5px 15px rgba(0, 0, 0, 0.5)',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    cursor: 'pointer',
   },
-  th: {
-    backgroundColor: '#3b82f6',
-    color: '#ffffff',
-    textAlign: 'left',
-    padding: '14px 20px',
+  userPrincipal: {
+    fontSize: '14px',
+    color: '#FFD700',
+    marginBottom: '10px',
+    wordBreak: 'break-all',
+  },
+  userBalance: {
     fontSize: '16px',
-    borderTopLeftRadius: '8px',
-    borderTopRightRadius: '8px',
-  },
-  td: {
-    padding: '14px 20px',
-    fontSize: '15px',
-    color: '#334155',
-    backgroundColor: '#f9fafb',
-    borderBottom: '1px solid #e2e8f0',
-  },
-  rowEven: {
-    backgroundColor: '#f1f5f9',
-  },
-  rowOdd: {
-    backgroundColor: '#ffffff',
+    fontWeight: 'bold',
+    color: '#fff',
   },
 };
 

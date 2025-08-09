@@ -1,0 +1,9 @@
+.user-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

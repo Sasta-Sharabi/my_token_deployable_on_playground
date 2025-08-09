@@ -9,7 +9,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const { callFunction, logout } = useAuth();
+  const { callFunction } = useAuth();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -21,7 +21,7 @@ const Profile = () => {
         setBalance(bal);
       } catch (err) {
         console.error('Error fetching profile:', err);
-        setError('Failed to load profile information.');
+        setError('❌ Failed to load profile information.');
       } finally {
         setLoading(false);
       }
@@ -43,7 +43,7 @@ const Profile = () => {
   };
 
   if (loading) return <p style={styles.status}>Loading profile...</p>;
-  if (error) return <p style={{ ...styles.status, color: 'red' }}>{error}</p>;
+  if (error) return <p style={{ ...styles.status, color: '#ff4d4f' }}>{error}</p>;
 
   return (
     <div style={styles.container}>
@@ -51,12 +51,12 @@ const Profile = () => {
         <h2 style={styles.title}>👤 Profile</h2>
 
         <div style={styles.detail}>
-          <strong>Principal:</strong>
+          <strong style={styles.label}>Principal:</strong>
           <span style={styles.principal}>{principal}</span>
         </div>
 
         <div style={styles.detail}>
-          <strong>Username:</strong>
+          <strong style={styles.label}>Username:</strong>
           <input
             type="text"
             value={username}
@@ -66,7 +66,7 @@ const Profile = () => {
         </div>
 
         <div style={styles.detail}>
-          <strong>Email:</strong>
+          <strong style={styles.label}>Email:</strong>
           <input
             type="email"
             value={email}
@@ -76,10 +76,13 @@ const Profile = () => {
         </div>
 
         <div style={styles.detail}>
-          <strong>Balance:</strong> <span>{balance}</span>
+          <strong style={styles.label}>Balance:</strong>
+          <span style={styles.value}>{balance}</span>
         </div>
 
-        <button onClick={handleUpdate} style={styles.updateButton}>🔄 Update Details</button>
+        <button onClick={handleUpdate} style={styles.button}>
+          🔄 Update Details
+        </button>
 
         {success && <div style={styles.successBox}>{success}</div>}
         {error && <div style={styles.errorBox}>{error}</div>}
@@ -91,7 +94,7 @@ const Profile = () => {
 const styles = {
   container: {
     padding: '40px',
-    background: 'linear-gradient(to right, #eef2f3, #ffffff)',
+    background: 'radial-gradient(circle at center, #0f0f0f 0%, #000000 100%)',
     minHeight: '100vh',
     fontFamily: `'Inter', sans-serif`,
     display: 'flex',
@@ -101,62 +104,83 @@ const styles = {
   card: {
     width: '100%',
     maxWidth: '600px',
-    backgroundColor: '#ffffff',
+    background: 'rgba(20, 20, 20, 0.75)',
+    backdropFilter: 'blur(16px)',
     borderRadius: '16px',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.07)',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    boxShadow: '0 0 20px rgba(255, 215, 0, 0.2)',
     padding: '30px 40px',
+    color: '#f5f5f5',
   },
   title: {
     fontSize: '26px',
     marginBottom: '25px',
     fontWeight: 700,
-    color: '#1e293b',
-    borderBottom: '2px solid #e2e8f0',
+    color: '#FFD700',
+    borderBottom: '2px solid rgba(255, 215, 0, 0.4)',
     paddingBottom: '10px',
+    textShadow: '0 0 6px rgba(255, 215, 0, 0.5)',
   },
   detail: {
-    marginBottom: '16px',
+    marginBottom: '20px',
     fontSize: '17px',
-    color: '#334155',
     display: 'flex',
     flexDirection: 'column',
     wordBreak: 'break-word',
   },
+  label: {
+    color: '#FFD700',
+    marginBottom: '6px',
+    fontWeight: 'bold',
+  },
   principal: {
     fontFamily: 'monospace',
     fontSize: '15px',
-    color: '#0f172a',
-    marginTop: '6px',
+    color: '#FFD700',
+    background: 'rgba(255,255,255,0.05)',
+    padding: '8px',
+    borderRadius: '6px',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    boxShadow: '0 0 8px rgba(255, 215, 0, 0.2)',
+  },
+  value: {
+    color: '#FFD700',
   },
   input: {
-    padding: '8px',
-    marginTop: '6px',
-    borderRadius: '6px',
-    border: '1px solid #cbd5e1',
-    fontSize: '15px',
+    padding: '12px',
+    fontSize: '16px',
+    fontFamily: 'monospace',
+    borderRadius: '8px',
+    border: '1px solid rgba(255,215,0,0.3)',
+    background: 'rgba(255, 255, 255, 0.05)',
+    color: '#FFD700',
+    outline: 'none',
+    boxShadow: '0 0 8px rgba(255, 215, 0, 0.2)',
   },
-  updateButton: {
-    marginTop: '20px',
-    padding: '10px 16px',
-    backgroundColor: '#3b82f6',
-    color: '#ffffff',
+  button: {
+    width: '100%',
+    padding: '14px',
+    fontSize: '16px',
+    background: 'linear-gradient(90deg, #FFD700, #ffcc33)',
+    color: '#000',
+    fontWeight: 'bold',
     border: 'none',
     borderRadius: '8px',
-    fontSize: '16px',
     cursor: 'pointer',
-    transition: 'background 0.3s ease',
+    boxShadow: '0 0 10px rgba(255, 215, 0, 0.4)',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
   },
   status: {
     fontSize: '18px',
-    color: '#64748b',
+    color: '#FFD700',
     textAlign: 'center',
     paddingTop: '40px',
   },
   successBox: {
     marginTop: '20px',
-    backgroundColor: '#d1fae5',
+    backgroundColor: 'rgba(0, 255, 128, 0.1)',
     border: '1px solid #10b981',
-    color: '#065f46',
+    color: '#10b981',
     borderRadius: '8px',
     padding: '10px 14px',
     fontSize: '15px',
@@ -164,9 +188,9 @@ const styles = {
   },
   errorBox: {
     marginTop: '20px',
-    backgroundColor: '#fee2e2',
-    border: '1px solid #ef4444',
-    color: '#991b1b',
+    backgroundColor: 'rgba(255, 0, 0, 0.1)',
+    border: '1px solid #ff4d4f',
+    color: '#ff4d4f',
     borderRadius: '8px',
     padding: '10px 14px',
     fontSize: '15px',

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { AuthProvider, useAuth } from './AuthProvider';
-import Home from './Home';
 import Login from './Login';
 import MainApp from './MainApp';
 
@@ -18,7 +17,7 @@ function AppContent() {
   }
 
   return (
-    <main>
+    <main style={styles.main}>
       {isAuth ? <MainApp /> : <Login />}
     </main>
   );
@@ -33,9 +32,14 @@ const App = () => {
 };
 
 const styles = {
+  main: {
+    minHeight: '100vh',
+    background: 'radial-gradient(circle at top, #1a1a1a, #0d0d0d)',
+    fontFamily: `'Inter', sans-serif`,
+  },
   loadingContainer: {
     padding: '40px',
-    background: 'linear-gradient(to right, #eef2f3, #ffffff)',
+    background: 'radial-gradient(circle at top, #1a1a1a, #0d0d0d)',
     minHeight: '100vh',
     fontFamily: `'Inter', sans-serif`,
     display: 'flex',
@@ -45,16 +49,19 @@ const styles = {
   card: {
     maxWidth: '500px',
     width: '100%',
-    backgroundColor: '#ffffff',
+    background: 'rgba(255, 215, 0, 0.05)',
     borderRadius: '16px',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.07)',
+    boxShadow: '0 0 25px rgba(255, 215, 0, 0.2)',
+    border: '1px solid rgba(255, 215, 0, 0.2)',
     padding: '30px 40px',
     textAlign: 'center',
+    backdropFilter: 'blur(12px)',
   },
   loadingText: {
     fontSize: '22px',
     fontWeight: 600,
-    color: '#334155',
+    color: '#FFD700',
+    textShadow: '0 0 6px rgba(255, 215, 0, 0.6)',
   },
 };
 
