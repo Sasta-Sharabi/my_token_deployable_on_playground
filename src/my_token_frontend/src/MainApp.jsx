@@ -10,6 +10,9 @@ import Balance from './components/Navbar Components/Balance';
 import Mint from './components/Navbar Components/Mint';
 import Profile from './components/Navbar Components/Profile';
 import Metadata from './components/Navbar Components/Metadata';
+import Faucet from './components/Navbar Components/Faucet';
+import Documentation from './components/Navbar Components/Documentation';
+import Aoi from './components/Navbar Components/Aoi';
 
 function MainApp() {
   const { authUser, callFunction } = useAuth();
@@ -48,8 +51,11 @@ function MainApp() {
         <Route path="/transfer" element={<Transfer />} />
         <Route path="/balance" element={<Balance />} />
         <Route path="/mint" element={<Mint />} />
+        <Route path="/faucet" element={<Faucet   />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/metadata" element={<Metadata />} />
+        <Route path="/docs" element={<Documentation />} />
+        <Route path="/aoi" element={<Aoi />} />
       </Routes>
     </BrowserRouter>
   );

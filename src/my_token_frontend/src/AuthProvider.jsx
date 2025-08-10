@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { AuthClient } from '@dfinity/auth-client'
-import {createActor , canisterId} from '/home/revglory11/Projects/Creating mini task/my_token/src/declarations/my_token_backend';
+import {createActor , canisterId} from '../../../src/declarations/my_token_backend';
 
 const AuthContext = createContext();
 
@@ -49,6 +49,7 @@ export const useAuthClient = (options = defaultOptions) => {
         });
 
         setCallFunction(actor);
+        actor.register_user();
     }
 
     const login = () => {

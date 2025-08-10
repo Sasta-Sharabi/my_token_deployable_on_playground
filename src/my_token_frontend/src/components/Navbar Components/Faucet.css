@@ -1,0 +1,64 @@
+.section-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.faucet-container {
+  width: 500px; /* Match Transfer.jsx size */
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.faucet-icon {
+  width: 110px;
+  height: auto;
+  margin-bottom: 15px;
+  animation: floatGlow 3s ease-in-out infinite;
+}
+
+@keyframes floatGlow {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 5px gold);
+  }
+  50% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 0 15px gold);
+  }
+}
+
+.faucet-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: gold;
+}
+
+.faucet-description {
+  font-size: 1.05rem;
+  color: #ccc;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.faucet-button {
+  padding: 10px 20px;
+  background-color: gold;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.faucet-button:hover {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  transform: scale(1.05);
+}

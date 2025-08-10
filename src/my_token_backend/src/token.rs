@@ -72,10 +72,14 @@ pub fn mint(amount: u128, account : Principal) -> Result<u128, Errors> {
     let mut state = get_state();
 
     /*Uncomment if you want owner to only able to mint */
-    // if minter() != caller() {
-    //     return Err(Errors::NotTheMinter);
-    // }
+    if minter() != caller() {
+        return Err(Errors::NotTheMinter);
+    }
 
+    if amount == 0{
+        return Err(Errors::ZeroTransfer);
+    }
+    
     let curr_balance = check_balance(account);
     state.all_users_balance.insert(account.clone(), curr_balance + amount);
 
@@ -104,8 +108,25 @@ pub fn new_user(){
         return;
     };
 
-
     state.all_user.insert(caller(), UserData{ name : "".to_string() , email : "".to_string()});
-    state.all_users_balance.insert(caller(), 70000000);
+    state.all_users_balance.insert(caller(), 0);
+    save_state(state);
+}
+
+#[update]
+pub fn add_faucets(){
+    let mut state = get_state();
+
+    let curr_balance = check_balance(caller());
+    state.all_users_balance.insert(caller(),curr_balance + 100);
+    
+    let minter = match state.minting_account{
+        None=> caller(),
+        Some(p) => p
+    };
+
+    let minter_balance = check_balance(minter);
+    state.all_users_balance.insert(minter,minter_balance - 100);
+
     save_state(state);
 }

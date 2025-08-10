@@ -22,9 +22,12 @@ const links = [
   { path: '/', label: 'All Users', end: true },
   { path: '/transfer', label: 'Transfer' },
   { path: '/mint', label: 'Mint' },
+  { path: '/faucet', label: 'Faucets' },
   { path: '/balance', label: 'Balance' },
   { path: '/profile', label: 'Profile' },
   { path: '/metadata', label: 'Token Details' },
+  { path: '/docs', label: 'Documentation' },
+  { path: '/aoi', label: 'Area of Improvements' },
 ];
 
 const getLinkStyle = ({ isActive }) => ({

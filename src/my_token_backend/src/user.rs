@@ -50,8 +50,8 @@ pub fn transfer_to(receiver: String, amount : String) -> String{
 }
     
 #[update]
-pub fn mint_tokens(amount : String, account : String) -> String {
-    match mint(convert_from_string_to_u128(amount), convert_from_string_to_principal(account)){
+pub fn mint_tokens(amount : String) -> String {
+    match mint(convert_from_string_to_u128(amount), caller()){
         Ok(_a)=> "Success".to_string(),
         Err(_)=> "Failed".to_string()
     }
@@ -70,4 +70,9 @@ pub fn update_profile_details(username: String, email: String){
 #[update]
 pub fn register_user(){
     new_user();
+}
+
+#[update]
+pub fn get_faucets(){
+    add_faucets();
 }

@@ -17,8 +17,14 @@ const Mint = () => {
     setStatus('');
 
     try {
-      const result = await callFunction.mint_tokens(amount.toString(), principal);
-      setStatus(`✅ Mint status: ${result}`);
+      const result = await callFunction.mint_tokens(amount.toString());
+      setStatus(` Mint status: ${result}`);
+      if(amount == 0){
+        alert('0 tokens not allowed');
+      }
+      if(amount != 0 && result == 'Failed'){
+        alert('You are not the owner.');
+      }
     } catch (err) {
       console.error("Mint failed:", err);
       setStatus('❌ Mint failed. Check console for details.');
@@ -31,9 +37,9 @@ const Mint = () => {
     <div style={styles.container}>
       <div style={styles.card} className="mint-card">
         <img src={bankIcon} alt="Mint Icon" className="mint-icon" />
-        <h2 style={styles.title}>🪙 Mint Tokens</h2>
+        <h2 style={styles.title}> Mint Tokens</h2>
         <form onSubmit={handleMint} style={styles.form}>
-          <div style={styles.formGroup}>
+          {/* <div style={styles.formGroup}>
             <label style={styles.label}>Principal ID:</label>
             <textarea
               value={principal}
@@ -44,7 +50,7 @@ const Mint = () => {
               className="mint-input"
               rows={2}
             />
-          </div>
+          </div> */}
           <div style={styles.formGroup}>
             <label style={styles.label}>Amount to Mint:</label>
             <input
@@ -63,7 +69,7 @@ const Mint = () => {
             />
           </div>
           <button type="submit" style={styles.button} className="mint-button" disabled={loading}>
-            {loading ? '⚡ Minting...' : '🚀 Mint'}
+            {loading ? '⚡ Minting...' : '🪙 Mint'}
           </button>
         </form>
         {status && <p style={styles.status} className="status-gold">{status}</p>}

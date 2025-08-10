@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../AuthProvider';
+import coinIcon from '../../assets/coin-purse.png'; // use your uploaded icon path
 
 const Balance = () => {
   const [principal, setPrincipal] = useState('');
@@ -29,7 +30,10 @@ const Balance = () => {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h2 style={styles.title}>🔍 Check Balance</h2>
+        {/* Icon */}
+        <img src={coinIcon} alt="Coin Purse Icon" style={styles.icon} />
+
+        <h2 style={styles.title}> Check Balance</h2>
         <form onSubmit={handleCheckBalance} style={styles.form}>
           <div style={styles.formGroup}>
             <label style={styles.label}>Principal ID:</label>
@@ -43,7 +47,7 @@ const Balance = () => {
             />
           </div>
           <button type="submit" style={styles.button} disabled={loading}>
-            {loading ? '⚡ Checking...' : '🚀 Check Balance'}
+            {loading ? '⚡ Checking...' : '💰 Check Balance'}
           </button>
         </form>
         {status && <p style={styles.status}>{status}</p>}
@@ -77,6 +81,12 @@ const styles = {
     boxShadow: '0 0 20px rgba(255, 215, 0, 0.2)',
     padding: '30px 40px',
     color: '#f5f5f5',
+    textAlign: 'center',
+  },
+  icon: {
+    width: '120px',
+    marginBottom: '15px',
+    animation: 'float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate',
   },
   title: {
     fontSize: '26px',
@@ -148,5 +158,22 @@ const styles = {
     boxShadow: '0 0 6px rgba(255, 215, 0, 0.2)',
   },
 };
+
+// Inject animation styles into document head
+const animationStyles = `
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 3px gold) drop-shadow(0 0 6px gold); }
+  100% { filter: drop-shadow(0 0 8px gold) drop-shadow(0 0 15px gold); }
+}
+`;
+if (typeof document !== 'undefined') {
+  const styleEl = document.createElement('style');
+  styleEl.innerHTML = animationStyles;
+  document.head.appendChild(styleEl);
+}
 
 export default Balance;

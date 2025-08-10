@@ -25,12 +25,14 @@ service : {
   get_token_metadata : () -> (text , text, text , text) query; 
   update_user_details : (text,text) -> ();
   new_user : () -> (); 
+  add_faucets : () -> ();
 
   get_profile_details : () -> (text,text,text,text) query;
   check_balance_of : (text) -> (text) query;
   transfer_to : (text,text) -> (text); 
-  mint_tokens : (text,text) -> (text); 
+  mint_tokens : (text) -> (text); 
   get_header_details : () -> (text , text) query;
   update_profile_details : (text , text) -> ();
   register_user : () -> ();
+  get_faucets : () -> ();
 }
