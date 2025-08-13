@@ -7,6 +7,14 @@ type Errors = variant {
   NotTheMinter;
 };
 
+type Transaction = record {
+   from: principal;
+   to: principal;
+   amount: nat;
+   timestamp: nat64;
+   tx_type: text;
+}
+
 
 service : {
   token_name: () -> (text) query;
@@ -26,6 +34,7 @@ service : {
   update_user_details : (text,text) -> ();
   new_user : () -> (); 
   add_faucets : () -> ();
+  get_transactions_for : (principal) -> (vec Transaction) query;
 
   get_profile_details : () -> (text,text,text,text) query;
   check_balance_of : (text) -> (text) query;
@@ -35,4 +44,5 @@ service : {
   update_profile_details : (text , text) -> ();
   register_user : () -> ();
   get_faucets : () -> ();
+  fetch_transactions : () -> (vec Transaction) query;
 }

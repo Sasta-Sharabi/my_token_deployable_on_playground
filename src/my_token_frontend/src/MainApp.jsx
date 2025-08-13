@@ -12,7 +12,8 @@ import Profile from './components/Navbar Components/Profile';
 import Metadata from './components/Navbar Components/Metadata';
 import Faucet from './components/Navbar Components/Faucet';
 import Documentation from './components/Navbar Components/Documentation';
-import Aoi from './components/Navbar Components/Aoi';
+import Transaction from './components/Navbar Components/Transaction';
+
 
 function MainApp() {
   const { authUser, callFunction } = useAuth();
@@ -53,9 +54,9 @@ function MainApp() {
         <Route path="/mint" element={<Mint />} />
         <Route path="/faucet" element={<Faucet   />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/transactions" element={<Transaction />} />
         <Route path="/metadata" element={<Metadata />} />
         <Route path="/docs" element={<Documentation />} />
-        <Route path="/aoi" element={<Aoi />} />
       </Routes>
     </BrowserRouter>
   );

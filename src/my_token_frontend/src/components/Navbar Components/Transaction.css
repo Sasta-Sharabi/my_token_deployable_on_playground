@@ -1,0 +1,86 @@
+.transaction-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Keep card near top but allow padding to control gap */
+  padding: 60px 20px 40px 20px; /* Top padding increased to 60px */
+  background: #0a0a0a;
+}
+
+
+.transaction-card {
+  background: rgba(20, 20, 30, 0.85);
+  border-radius: 20px;
+  border: 2px solid gold;
+  padding: 30px;
+  width: 95%;           /* Increased width */
+  max-width: 1300px;    /* Expanded max width */
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+  backdrop-filter: blur(12px);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.transaction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.7);
+}
+
+.transaction-title {
+  font-size: 1.5rem; /* Scaled down */
+  color: gold;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.transaction-loading,
+.transaction-empty {
+  text-align: center;
+  color: #ccc;
+  font-size: 0.875rem; /* Smaller text */
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 8px;        /* Slightly smaller padding */
+  font-size: 0.875rem; /* Smaller table text */
+  text-align: left;
+}
+
+.transaction-table thead {
+  background: rgba(255, 215, 0, 0.15);
+  color: gold;
+}
+
+.transaction-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.transaction-table tbody tr:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.type-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.type-icon {
+  width: 30px;  /* Increased image size */
+  height: 30px; /* Increased image size */
+}
+
+.type-badge {
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 0.7rem;   /* Smaller badge text */
+  font-weight: bold;
+}

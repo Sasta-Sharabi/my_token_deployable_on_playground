@@ -6,7 +6,6 @@ import './Mint.css'; // Import CSS for animations
 
 const Mint = () => {
   const [amount, setAmount] = useState('');
-  const [principal, setPrincipal] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const { callFunction } = useAuth();
@@ -18,13 +17,21 @@ const Mint = () => {
 
     try {
       const result = await callFunction.mint_tokens(amount.toString());
-      setStatus(` Mint status: ${result}`);
-      if(amount == 0){
-        alert('0 tokens not allowed');
+
+      // Case 1: Amount is zero
+      if (amount === '0') {
+        setStatus('⚠️ 0 tokens not allowed');
+        return;
       }
-      if(amount != 0 && result == 'Failed'){
-        alert('You are not the owner.');
+
+      // Case 2: Mint failed
+      if (result === 'Failed') {
+        setStatus('❌ You are not the owner.');
+        return;
       }
+
+      // Successful mint
+      setStatus(`✅ Mint successful: ${amount} tokens minted`);
     } catch (err) {
       console.error("Mint failed:", err);
       setStatus('❌ Mint failed. Check console for details.');

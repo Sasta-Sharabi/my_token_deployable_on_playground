@@ -12,12 +12,15 @@ const Documentation = () => {
         <div style={styles.textBox}>
           <p>
             <ul>
-                <li>The All Users page will show the list of all users.</li>
-                <li>The Transfer Page send the transfer to other users of platform. You cannot transfer 0 amount or to yourself. You cannot transfer more than your balance. </li>
-                <li>The Mint Page adds new tokens to total supply. You cannot mint 0 tokens. Only the owner(mentioned in Token Details) can mint coins.</li>
-                <li>The Faucet Page grants free 100 tokens which will get deducted from owner's account. You can get as many as you want. </li>
-                <li>The Balance Page shows the balance of a user you want to look without the need to go through the whole user list. </li>
-                <li>The Profile section will display your details. You can update them. </li>
+                <li><b><u>AirDrop:</u></b> Whenever the total number of users reaches a milestone, every user gets some tokens which are minted and the milestone doubles for next drop.</li>
+                <li><b><u>All User:</u></b> This page will show the list of all users along with their balance.</li>
+                <li><b><u>Transfer:</u></b> Allow sending the tokens to other users of platform. You cannot transfer 0 amount. You cannot transfer to yourself. You cannot transfer more than your current balance. </li>
+                <li><b><u>Mint:</u></b> The Mint Page adds new tokens to total supply. You cannot mint 0 tokens. Only the owner(mentioned in Token Details) can mint tokens.</li>
+                <li><b><u>Faucet:</u></b> It grants free 100 tokens which will get deducted from owner's account. You can claim as many times as you want.</li>
+                <li><b><u>Balance:</u></b> It shows the balance of a user you want to look without the need to go through the whole user list. </li>
+                <li><b><u>Profile:</u></b> It will display your details. You can also update them. </li>
+                <li><b><u>Transaction:</u></b> It will display Transaction Type, sender , receiver, amount , date and time.</li>
+                <li><b><u>Token Details:</u></b> Show some details of token</li>
             </ul>
           </p>
         </div>

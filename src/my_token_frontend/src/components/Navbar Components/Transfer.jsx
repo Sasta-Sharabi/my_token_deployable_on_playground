@@ -16,9 +16,21 @@ const Transfer = () => {
 
     try {
       const result = await callFunction.transfer_to(receiver, amount.toString());
-      setStatus(`Transfer status: ${result}`);
-      if(amount == 0){alert('Amount cannot be zero')}
-      if(amount != 0 && result == 'Failed') { alert('Either you are Transfering to yourself or you do not have sufficient Balance' )}
+
+      // Case 1: Amount is zero
+      if (amount === '0') {
+        setStatus('⚠️ Amount cannot be zero');
+        return;
+      }
+
+      // Case 2: Transfer failed
+      if (result === 'Failed') {
+        setStatus('❌ You cannot transfer to yourself');
+        return;
+      }
+
+      // Successful transfer
+      setStatus(`✅ Transfer successful: ${amount} tokens sent`);
     } catch (err) {
       console.error("Transfer failed:", err);
       setStatus('❌ Transfer failed. Check console for details.');

@@ -25,9 +25,10 @@ const links = [
   { path: '/faucet', label: 'Faucets' },
   { path: '/balance', label: 'Balance' },
   { path: '/profile', label: 'Profile' },
+  { path: '/transactions', label: 'Transactions' },
   { path: '/metadata', label: 'Token Details' },
   { path: '/docs', label: 'Documentation' },
-  { path: '/aoi', label: 'Area of Improvements' },
+
 ];
 
 const getLinkStyle = ({ isActive }) => ({

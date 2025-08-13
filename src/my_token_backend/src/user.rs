@@ -1,9 +1,10 @@
 use ic_cdk::{query , update , caller};
 use crate::state::{get_state};
-use crate::types::UserData;
+use crate::types::{Transaction, UserData};
 use crate::token::*;
 use candid::Principal;
 use crate::utils::{convert_from_string_to_principal,convert_from_string_to_u128};
+
 
 
 #[query]
@@ -76,3 +77,9 @@ pub fn register_user(){
 pub fn get_faucets(){
     add_faucets();
 }
+
+#[query]
+pub fn fetch_transactions() -> Vec<Transaction>{
+    get_transactions_for(caller())
+}
+
