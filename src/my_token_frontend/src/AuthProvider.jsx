@@ -11,7 +11,7 @@ const defaultOptions = {
         }
     },
     loginOptions:{
-        identityProvider: "http://uxrrr-q7777-77774-qaaaq-cai.localhost:4943/",
+        identityProvider: "https://identity.ic0.app",
     }
 }
 
